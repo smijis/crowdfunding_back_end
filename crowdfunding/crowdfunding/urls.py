@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('fundraisers.urls')),
+    path('admin/', admin.site.urls), #does the url have admin in the path? then go to the admin url (django configuration of admin settings)
+    path('', include('fundraisers.urls')), #anything that doesn't match the admin/ will go to our fundraisers url
 ]
