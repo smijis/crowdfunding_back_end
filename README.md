@@ -54,4 +54,4 @@ FundEd is designed for high school Commerce and Business Studies students and th
 
 ### DB Schema
 
-![]( {{ ./relative/path/to/your/schema/image.png }} )
+(./crowdfunding_back_end/schema_database.png)
