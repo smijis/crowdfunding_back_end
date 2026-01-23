@@ -54,4 +54,4 @@ FundEd is designed for high school Commerce and Business Studies students and th
 
 ### DB Schema
 
-![database schema diagram] (schema_database.png)
+![database schema diagram](schema_database.png)
