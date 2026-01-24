@@ -10,47 +10,52 @@ Selina Shin
 
 ### Concept/Name
 
-FundEd is an interactive online fundraising and learning platform designed to bring commerce and business studies to life for high school students. Students innovate their own business ideas and pitch them on the platform, while peers use virtual money to fund the ideas they believe in most. Classes can compete internally or enter termly and yearly national competitions with real prizes. Aligned with the NSW Department of Education syllabus for Commerce and Business Studies, FundEd builds foundational knowledge across consumer, financial, economic, and business topics, while developing essential research, problem-solving, and decision-making skills. Teachers can also reward positive behaviour and efforts in the classroom, or assessment results by allocating additional virtual funds.
+'Community Change' is a community-driven crowdfunding platform that allows people to create fundraisers for small, local improvement projects in their neighbourhood. Instead of waiting for council action, residents can raise money to directly support initiatives.
 
 ### Intended Audience/User Stories
 
-FundEd is designed for high school Commerce and Business Studies students and their teachers. Students use the platform to create and pitch business ideas and invest virtual money in ideas they support, learning real-world business and financial decision-making. Teachers use FundEd to support syllabus outcomes, run class competitions, reward positive behaviour or achievement with virtual funds, and engage students through interactive, curriculum-aligned learning.
+The intended audience for Community Change includes:
+- Local residents who want to improve their suburb or neighbourhood but lack the time, resources, or influence to navigate council processes
+- Community groups and volunteers looking to fund small-scale local projects (e.g. murals, youth programs, library resources)
+- Neighbourhood organisers who want a simple way to propose ideas, raise funds, and track community support
+
+User stories:
+- "As a community member, I want to view all fundraisers" -> Endpoint: GET/fundraisers/
+- "As a fundraiser creator, I want to create a fundraiser" -> Endpoint: POST/fundraisers/
+- "As a community member, I want to view fundraiser details" -> Endpoint: GET/fundraisers/<id>/
 
 ### Front End Pages/Functionality
 
-- Home / landing page
-  - Overview of FundEd and how it works
-  - Information about competitions and prizes
-- Sign up / log in page
-- Student Dashboard
-  - Create and edit a business idea (product or service)
-  - View available virtual funds
-  - Browse and fund other students’ business ideas
-  - Track funding received and competition rankings
-  - Enter competition
-- Teacher Dashboard
-  - Create and manage classes
-  - Allocate virtual funds to students as rewards
-  - Monitor student participation and progress
-  - Enter class into competition
-- Business Idea Page
-  - Display business descriptions, goals, and funding progress
-  - Allow students to invest virtual money
-  - Post emojis or likes (instead of comments)
+- Home Page
+  - Overview of the platform and how it works
+  - Featured or recent local fundraisers
+- Sign Up / Log In Page
+  - Register as a community member
+  - Log in to existing account
+- User Dashboard
+  - Create and edit local fundraisers
+  - View fundraisers you have created
+  - Track funding received on your projects
+  - View contributions you have made to other fundraisers
+- Browse Fundraisers Page
+  - Browse active fundraisers
+  - Filter by suburb/council
+  - View funding progress for each fundraiser
+- Fundraiser Page
+  - Display fundraiser description, location, and goal
+  - Show funding progress and deadline
+  - Allow users to contribute funds
+  - View updates from the fundraiser creator
 
 ### API Spec
 
 | URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
-| /api/signup | POST | Create new student/teacher account | name, email, password, role | 201 Created | none |
+| /api/signup | POST | Create new account | name, email, password, role | 201 Created | none |
 | /api/login | POST | Log a user into the system | email, password | 200 OK | none |
-| /api/student/dashboard | GET | Retrieve student dashboard | none | 200 OK | authenticated student |
-| /api/teacher/dashboard | GET | Retrieve teacher dashboard | none | 200 OK | authenticated teacher |
-| /api/business | POST | Create new business idea | title, description, category| 201 Created | authenticated student |
-| /api/business | GET | View all business ideas | none | 200 OK | authenticated user |
-| /api/business/{id}/fund| POST | Fund a business idea | amount | 200 OK | authenticated student |
-| /api/teacher/class | POST | Create/manage a class | class name, student list | 201 Created | authenticated teacher |
-| /api/teacher/funds | POST | Allocate funds to students | student name, amount | 200 OK | authenticated teacher |
-| /api/competition/enter | POST | Enter student/class in competition | student/class name | 200 OK | authenticated user |
+| /api/dashboard | GET | Retrieve dashboard | none | 200 OK | authenticated user |
+| /api/fundraisers | POST | Create new fundraiser | title, description, category| 201 Created | authenticated user |
+| /api/fundraisers | GET | View all fundraisers | none | 200 OK | authenticated user |
+| /api/fundraisers/{id}/pledge| POST | Pledge fundraiser | amount | 200 OK | authenticated user |
 
 ### DB Schema
 
