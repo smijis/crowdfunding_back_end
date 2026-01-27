@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users.views import CustomAuthToken
 
 urlpatterns = [
     path('admin/', admin.site.urls), #does the url have admin in the path? then go to the admin url (django configuration of admin settings)
-    path('', include('fundraisers.urls')), #anything that doesn't match the admin/ will go to our fundraisers url
+    path('', include('fundraisers.urls')), #' ' matches all urls for fundraisers.urls
+    path('', include('users.urls')), #' ' matches all urls for user.urls
+    path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'),
 ]

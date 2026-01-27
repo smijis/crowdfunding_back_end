@@ -15,7 +15,7 @@ class FundraiserList(APIView): #creating our first view class and inheriting the
     def post(self,request):
         serializer = FundraiserSerializer(data=request.data)
         if serializer.is_valid(): #if the data is valid in JSON format, serializer will save it
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
@@ -41,7 +41,7 @@ class PledgeList(APIView):
     def post(self,request):
         serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(supporter=request.user)
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED

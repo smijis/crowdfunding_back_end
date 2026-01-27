@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model #django will get this from our AUTH_USER_MODEL in settings.py
 
 class Fundraiser(models.Model):
     title = models.CharField(max_length=200)
@@ -7,6 +8,11 @@ class Fundraiser(models.Model):
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(
+        get_user_model(), #any other class, use the name of the model but for users, use the model we gave in the user setting. if we later change the model in the settings, we won't need to retype it everywhere 
+        on_delete=models.CASCADE,
+        related_name='owned_fundraisers'
+    )
 
 class Pledge(models.Model):
     amount = models.IntegerField()
@@ -20,3 +26,9 @@ class Pledge(models.Model):
     # other examples
     # 'Business' and related_name='investments'
     # 'Car' and related_name='products'
+
+    supporter = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='pledges'
+    )
