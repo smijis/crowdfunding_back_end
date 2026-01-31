@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'fundraisers.apps.FundraisersConfig',
     'users.apps.UsersConfig',
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken', #see below - need to migrate again because we have pulled in a new package and we have created a new table (authtoken) to record tokens
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
+#telling Django: for authentication, use token authentication
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',

@@ -3,7 +3,8 @@ from .models import CustomUser
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta: #django pattern short for 'meta data' - tells it what model and fields to configure and include
-        model = CustomUserfields = '__all__'
+        model = CustomUser
+        fields = '__all__'
         extra_kwargs = {'password': {'write_only': True}} #kwargs = keyword arguments e.g. fn(food=bread, name=Sam)
         #serializers deserializes passwords into databases and when data goes out, it serializes. 'Write-only' means only send passwords, don't let any data out. Passwords can only be created, they can't be read by the API.
 

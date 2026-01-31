@@ -1,11 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from django.shortcuts import get_object_or_404
 from .models import Fundraiser, Pledge #telling Django "from the models.py file, import and read the Fundraiser class"
 from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer #telling Django "from the serializer.py file, import and read the FundraiserSerializer class"
+from .permissions import IsOwnerOrReadOnly
 
 class FundraiserList(APIView): #creating our first view class and inheriting the rest framework's APIView. We will build our class on top of it so all classes I create should inherit it
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self,request): #functions must match one of the http framework "get, post, patch, delete" - if you name it something else, it won't work
         fundraisers = Fundraiser.objects.all()
@@ -15,7 +17,7 @@ class FundraiserList(APIView): #creating our first view class and inheriting the
     def post(self,request):
         serializer = FundraiserSerializer(data=request.data)
         if serializer.is_valid(): #if the data is valid in JSON format, serializer will save it
-            serializer.save(owner=request.user)
+            serializer.save(owner=request.user) #use the current user who is logged in
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
@@ -25,11 +27,35 @@ class FundraiserList(APIView): #creating our first view class and inheriting the
             status=status.HTTP_400_BAD_REQUEST
         )
 
-class FundraiserDetail(APIView): #inheriting the APIView
-    def get(self, request, pk):
+class FundraiserDetail(APIView): #inheriting the APIView. (Shorter version by Biago)
+    
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly
+    ]
+
+    def get(self, request, pk): #It is in the fundraiser detail view because this is related to the url that has the number (primary key) e.g. /fundraisers/1/
         fundraiser = get_object_or_404(Fundraiser, pk=pk) #get this object or return 404 - store the data in the fundraiser variable
         serializer = FundraiserDetailSerializer(fundraiser) #running the fundraising variable and serializing the result - store the result in serializer variable
         return Response(serializer.data) #return serializer variable and exit the function
+
+    def put(self, request, pk): #updating an existing fundraiser. It is in the fundraiser detail view because this is related to the url that has the number (primary key) e.g. /fundraisers/1/
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
+        self.check_object_permissions(request, fundraiser)
+        serializer = FundraiserDetailSerializer(
+            instance = fundraiser, #the specific fundraiser instance
+            data = request.data, #data of the updated JSON fields
+            partial = True
+        )
+        if serializer.is_valid():
+            serializer.save() #it is safe to save the update
+            return Response(serializer.data) #return the data that we saved
+        
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
 
 class PledgeList(APIView):
 
@@ -41,7 +67,7 @@ class PledgeList(APIView):
     def post(self,request):
         serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(supporter=request.user)
+            serializer.save(supporter=request.user) #use the current user who is logged in
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED

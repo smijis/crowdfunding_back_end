@@ -32,7 +32,7 @@ class CustomUserDetail(APIView): #inheriting on top of the built in API View. th
         serializer = CustomUserSerializer(user)
         return Response(serializer.data)
     
-class CustomAuthToken(ObtainAuthToken):
+class CustomAuthToken(ObtainAuthToken): #shorter version Biago provided via Slack (bookmarked on Chrome)
     def post(self, request):
         serializer = self.serializer_class(
             data=request.data,
@@ -40,9 +40,9 @@ class CustomAuthToken(ObtainAuthToken):
         )
         serializer.is_valid(raise_exception=True) #raise exception means raise an error
         user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
+        token, created = Token.objects.get_or_create(user=user) #Creates a token for the user who is logging in. If a token has already been created and is still valid, just get that one instead
 
-        return Response({
+        return Response({ #returning the token we generated, the user id and email (to show the user that they are logged in on the frontend)
             'token': token.key,
             'user_id': user.id,
             'email': user.email
