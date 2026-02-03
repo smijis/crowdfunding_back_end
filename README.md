@@ -23,14 +23,14 @@ User stories:
 
 - "As a fundraiser creator, I want to create a fundraiser." -> Endpoint: POST/fundraisers/
 - "As a fundraiser creator, I want to see all the pledges for my fundraiser." -> Endpoint: GET/fundraisers/<id>/pledges/
-- "As a fundraiser creator, I want to see all the fundraisers I've created." + "As a community member, I want to view all the fundraisers by a fundraiser creator." -> Endpoint: GET/users/<id>/fundraisers
+- "As a fundraiser creator, I want to see all the fundraisers I've created." + "As a pledger, I want to view all the fundraisers by a fundraiser creator." -> Endpoint: GET/users/<id>/fundraisers
 - "As a fundraiser creator, I want to edit an existing fundraiser." -> Endpoint: PUT/fundraisers/<id>/
-- "As a fundraiser creator, I want to close an existing fundraiser." +
-  "As a fundraiser creator, I want to close a fundraiser when goal as been reached." -> Endpoint: PATCH/fundraisers/<id>/
-- "As a community member, I want to view all fundraisers." -> Endpoint: GET/fundraisers/
-- "As a community member, I want to view a fundraiser's details." -> Endpoint: GET/fundraisers/<id>/
-- "As a community member, I want to fund a fundraiser." -> Endpoint: POST/fundraisers/<id>/pledges/
-- "As a community member, I want to see all my pledges." -> Endpoint: GET/users/<id>/pledges
+- "As a fundraiser creator, I want to close an existing fundraiser/close a fundraiser when goal is reached." -> Endpoint: PUT/fundraisers/<id>/
+- "As a pledger, I want to view all fundraisers." -> Endpoint: GET/fundraisers/
+- "As a pledger, I want to view a fundraiser's details." -> Endpoint: GET/fundraisers/<id>/
+- "As a pledger, I want to fund a fundraiser." -> Endpoint: POST/fundraisers/<id>/pledges/
+- "As a pledger and as a fundraiser creator, I want to see a specific pledge." -> Endpoint: GET/pledges/<id>/
+- "As a pledger, I want to see all my pledges." -> Endpoint: GET/users/<id>/pledges/
 
 ### Front End Pages/Functionality
 
