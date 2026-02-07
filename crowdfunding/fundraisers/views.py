@@ -56,7 +56,6 @@ class FundraiserDetail(APIView): #inheriting the APIView. (Shorter version by Bi
             status=status.HTTP_400_BAD_REQUEST
         )
 
-
 class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 

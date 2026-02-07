@@ -5,7 +5,9 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import get_object_or_404
 from .models import CustomUser
+from fundraisers.models import Fundraiser, Pledge
 from .serializers import CustomUserSerializer
+from fundraisers.serializers import FundraiserSerializer, PledgeSerializer
 
 class CustomUserList(APIView): #this class lists all the users
     def get(self, request):
@@ -28,9 +30,21 @@ class CustomUserList(APIView): #this class lists all the users
     
 class CustomUserDetail(APIView): #inheriting on top of the built in API View. this class will deal with when we want to retrieve a particular user
     def get(self, request, pk): #pk = primary key e.g. /users/1 (1 is the primary key - the user ID)
-        user = get_object_or_404(CustomUser, pk)
+        user = get_object_or_404(CustomUser, pk=pk)
         serializer = CustomUserSerializer(user)
-        return Response(serializer.data)
+    
+        fundraisers = Fundraiser.objects.filter(owner=user)
+        fundraisers_serializer = FundraiserSerializer(fundraisers, many=True)
+
+        pledges = Pledge.objects.filter(supporter=user)
+        pledges_serializer = PledgeSerializer(pledges, many=True)
+
+        return Response({
+            "user": serializer.data,
+            "fundraisers": fundraisers_serializer.data,
+            "pledges": pledges_serializer.data
+        })
+
     
 class CustomAuthToken(ObtainAuthToken): #shorter version Biago provided via Slack (bookmarked on Chrome)
     def post(self, request):
