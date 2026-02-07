@@ -21,16 +21,13 @@ The intended audience for Community Change includes:
 
 User stories:
 
-- "As a fundraiser creator, I want to create a fundraiser." -> Endpoint: POST/fundraisers/
-- "As a fundraiser creator, I want to see all the pledges for my fundraiser." -> Endpoint: GET/fundraisers/<id>/pledges/
-- "As a fundraiser creator, I want to see all the fundraisers I've created." + "As a pledger, I want to view all the fundraisers by a fundraiser creator." -> Endpoint: GET/users/<id>/fundraisers
-- "As a fundraiser creator, I want to edit an existing fundraiser." -> Endpoint: PUT/fundraisers/<id>/
-- "As a fundraiser creator, I want to close an existing fundraiser/close a fundraiser when goal is reached." -> Endpoint: PUT/fundraisers/<id>/
-- "As a pledger, I want to view all fundraisers." -> Endpoint: GET/fundraisers/
-- "As a pledger, I want to view a fundraiser's details." -> Endpoint: GET/fundraisers/<id>/
-- "As a pledger, I want to fund a fundraiser." -> Endpoint: POST/fundraisers/<id>/pledges/
-- "As a pledger and as a fundraiser creator, I want to see a specific pledge." -> Endpoint: GET/pledges/<id>/
-- "As a pledger, I want to see all my pledges." -> Endpoint: GET/users/<id>/pledges/
+- "As a fundraiser creator, I want to create a fundraiser."
+- "As a fundraiser creator, I want to see all the pledges for my fundraiser." 
+- "As a user, I want to see all the fundraisers I've created/all pledges I've made."
+- "As a fundraiser creator, I want to edit/close an existing fundraiser."
+- "As a pledger, I want to view all fundraisers." 
+- "As a pledger, I want to view a fundraiser's details."
+- "As a pledger, I want to fund a fundraiser." 
 
 ### Front End Pages/Functionality
 
@@ -45,12 +42,12 @@ User stories:
   - Create and edit local fundraisers
   - View fundraisers you have created
   - Track funding received on your fundraisers
-  - View contributions you have made to other fundraisers
+  - View pledges you have made to other fundraisers
 - Create Fundraiser Page
   - Form to create new fundraiser (login required)
 - Browse Fundraisers Page
   - Browse active fundraisers (name and one line description)
-  - Filter by suburb/council
+  - Filter by location (e.g. suburb/council)
   - View funding progress for each fundraiser
   - View date created and deadline
 - Fundraiser Page
@@ -66,15 +63,16 @@ User stories:
 
 ### API Spec
 
-| URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
-| /api/signup | POST | Create new account | name, email, password | 201 Created | none |
-| /api/login | POST | Log a user into the system | email, password | 200 OK | none |
-| /api/dashboard | GET | Retrieve dashboard | none | 200 OK | authenticated user |
-| /api/users | GET | Retrieve all users | none | 200 OK | none |
-| /api/fundraisers | GET | View all fundraisers | none | 200 OK | none |
-| /api/fundraisers | POST | Create new fundraiser | title, description, funding goal, suburb/location, deadline| 201 Created | authenticated user |
-| /api/fundraisers/{id} | GET | View individual fundraiser | title, description, funding goal, amount raised, location, deadline, creator | 200 OK | none |
-| /api/fundraisers/{id}/pledge| POST | Pledge fundraiser | amount | 201 Created | authenticated user |
+| URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/ Authorisation |
+|---|---|---|---|---|---|
+| /api/signup/ | POST | Create new account | name, email, password | 201 Created | none |
+| /api/login/ | POST | Log a user into the system | email, password | 200 OK | none |
+| /api/fundraisers/ | GET | View all fundraisers | none | 200 OK | none |
+| /api/fundraisers/ | POST | Create new fundraiser | title, image, description, location, goal amount, deadline, active | 201 Created | authenticated user |
+| /api/fundraisers/:id/ | GET | View individual fundraiser and all pledges | none | 200 OK | none |
+| /api/fundraisers/:id/ | PUT | Edit existing fundraiser | title, image, description, location, goal amount, deadline, active | 200 OK | authorised user |
+| /api/pledges/| POST | Pledge fundraiser | fundraiser, amount, anonymous, comment | 201 Created | authenticated user |
+| /api/users/:id/| GET | Retrieve user's fundraisers and pledges | none | 200 OK | none |
 
 ### DB Schema
 
