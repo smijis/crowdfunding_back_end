@@ -10,6 +10,13 @@ class FundraiserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PledgeSerializer(serializers.ModelSerializer):
+    supporter = serializers.SerializerMethodField()
+    
+    def get_supporter(self, obj):
+        if obj.anonymous:
+            return None
+        return obj.supporter.id
+    
     class Meta:
         model = apps.get_model('fundraisers.Pledge') #fundraisers folder's Pledge
         fields = '__all__'
@@ -29,8 +36,14 @@ class FundraiserDetailSerializer(FundraiserSerializer):
         instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
-    
+
 class PledgeDetailSerializer(PledgeSerializer):
+    supporter = serializers.SerializerMethodField()
+
+    def get_supporter(self, obj):
+        if obj.anonymous:
+            return None
+        return obj.supporter.id
 
     def update(self, instance, validated_data):
         instance.amount = validated_data.get('amount', instance.amount)
@@ -38,3 +51,4 @@ class PledgeDetailSerializer(PledgeSerializer):
         instance.anonymous = validated_data.get('anonymous', instance.anonymous)
         instance.save()
         return instance
+    

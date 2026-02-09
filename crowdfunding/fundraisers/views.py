@@ -86,28 +86,33 @@ class PledgeDetail(APIView):
 
     def get(self, request, pk):      #this one needs the id in the URL (the get above doesn't)   
         pledge = get_object_or_404(Pledge, pk=pk) 
-        serializer = PledgeDetailSerializer(pledge)
+        serializer = PledgeDetailSerializer(pledge, many=True)
         return Response(serializer.data)
-
+    
     def put(self, request, pk):
         pledge = get_object_or_404(Pledge, pk=pk)
         self.check_object_permissions(request, pledge)
+
+        allowed_fields = {'comment', 'anonymous'}
+        forbidden_fields = set(request.data.keys()) - allowed_fields
+        if forbidden_fields:
+            return Response(
+            {"detail": "Cannot update this field."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+        # updates serializer
         serializer = PledgeDetailSerializer(
             instance = pledge,
             data = request.data,
             partial = True
         )
+
         if serializer.is_valid():
-            serializer.save() 
-            return Response(serializer.data) 
+            serializer.save()
+            return Response(serializer.data)
         
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
-
-    def delete(self, request, pk):
-        pledge = get_object_or_404(Pledge, pk=pk)
-        self.check_object_permissions(request, pledge)
-        pledge.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
