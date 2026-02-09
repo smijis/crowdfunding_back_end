@@ -55,6 +55,18 @@ class FundraiserDetail(APIView): #inheriting the APIView. (Shorter version by Bi
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
+    
+    def delete(self, request, pk):
+        fundraiser = get_object_or_404(Fundraiser, pk=pk)
+        self.check_object_permissions(request, fundraiser)
+        if fundraiser.pledges.exists():
+            return Response(
+            {"detail": "Cannot delete a fundraiser with existing pledges. Please close status of fundraiser instead."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+        fundraiser.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -84,9 +96,9 @@ class PledgeDetail(APIView):
         IsSupporterOrReadOnly
     ]
 
-    def get(self, request, pk):      #this one needs the id in the URL (the get above doesn't)   
+    def get(self, request, pk): #this one needs the id in the URL (the get above doesn't)   
         pledge = get_object_or_404(Pledge, pk=pk) 
-        serializer = PledgeDetailSerializer(pledge, many=True)
+        serializer = PledgeDetailSerializer(pledge)
         return Response(serializer.data)
     
     def put(self, request, pk):
