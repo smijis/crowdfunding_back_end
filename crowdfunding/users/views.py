@@ -39,11 +39,17 @@ class CustomUserDetail(APIView): #inheriting on top of the built in API View. th
         pledges = Pledge.objects.filter(supporter=user)
         pledges_serializer = PledgeSerializer(pledges, many=True)
 
-        return Response({
+        response_data = {
             "user": serializer.data,
             "fundraisers": fundraisers_serializer.data,
-            "pledges": pledges_serializer.data
-        })
+        }
+
+        if request.user.is_authenticated and request.user.id == user.id:
+            pledges = Pledge.objects.filter(supporter=user)
+            pledges_serializer = PledgeSerializer(pledges, many=True)
+            response_data["pledges"] = pledges_serializer.data
+
+        return Response(response_data)
 
     
 class CustomAuthToken(ObtainAuthToken): #shorter version Biago provided via Slack (bookmarked on Chrome)
