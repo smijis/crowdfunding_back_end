@@ -10,6 +10,8 @@ Selina Shin
 
 ### Concept/Name
 
+![Community Change logo](/images/community_change_logo.png)
+
 'Community Change' is a community-driven crowdfunding platform that allows people to create fundraisers for small, local improvement projects in their neighbourhood. Instead of waiting for council action, residents can raise money to directly support initiatives. Examples include filling in a pothole, covering graffiti with a mural, purchasing more books for the local library, running a school holiday program, and renovating the bathrooms at the local park.
 
 ### Intended Audience/User Stories
@@ -22,12 +24,13 @@ The intended audience for Community Change includes:
 User stories:
 
 - "As a fundraiser creator, I want to create a fundraiser."
-- "As a fundraiser creator, I want to see all the pledges for my fundraiser." 
-- "As a user, I want to see all the fundraisers I've created/all pledges I've made."
-- "As a fundraiser creator, I want to edit/close an existing fundraiser."
 - "As a pledger, I want to view all fundraisers." 
-- "As a pledger, I want to view a fundraiser's details."
+- "As a user, I want to see all the pledges for a fundraiser." 
+- "As a user, I want to see all the fundraisers I've created/all pledges I've made."
+- "As a user, I want to see all the fundraisers another user has created."
+- "As a fundraiser creator, I want to edit/close an existing fundraiser."
 - "As a pledger, I want to fund a fundraiser." 
+- "As a pledger, I want to edit a pledge."
 
 ### Front End Pages/Functionality
 
@@ -72,8 +75,25 @@ User stories:
 | /api/fundraisers/:id/ | GET | View individual fundraiser and all pledges | none | 200 OK | none |
 | /api/fundraisers/:id/ | PUT | Edit existing fundraiser | title, image, description, location, goal amount, deadline, active | 200 OK | authorised user |
 | /api/pledges/| POST | Pledge fundraiser | fundraiser, amount, anonymous, comment | 201 Created | authenticated user |
-| /api/users/:id/| GET | Retrieve user's fundraisers and pledges | none | 200 OK | none |
+| /api/pledges/:id/ | PUT | Edit pledge | anonymous, comment | 200 OK | authorised user |
+| /api/users/:id/| GET | View all user's fundraisers | none | 200 OK | none |
+| /api/users/:id/| GET | View all user's pledges | none | 200 OK | authorised user |
 
 ### DB Schema
 
-![database schema diagram](schema_database.png)
+![database schema diagram](/images/schema_database.png)
+
+### Submission
+
+- Link to the deployed project: https://crowdfunding-app-production-dc1723c10be4.herokuapp.com/
+- A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+  - Create a user
+  ![screenshot create a user](/images/POST_create_user.png)
+  - 
+- A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+  - Get all users
+  ![screenshot of all users](/images/GET_all_users.png)
+- A screenshot of Insomnia, demonstrating a token being returned.
+  ![screenshot generate token](/images/POST_generate_token.png)
+- Step by step instructions for how to register a new user and create a new fundraiser (i.e. endpoints and body data).</br>
+- Your refined API specification and Database Schema.
