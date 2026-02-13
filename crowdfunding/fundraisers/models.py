@@ -6,7 +6,7 @@ class Fundraiser(models.Model):
     image = models.URLField()
     description = models.TextField()
     suburb = models.CharField(max_length=200)
-    postcode = models.IntegerField(max_length=4)
+    postcode = models.IntegerField()
     goal = models.IntegerField()
     deadline = models.DateTimeField(null=True, blank=True)
     is_open = models.BooleanField()
