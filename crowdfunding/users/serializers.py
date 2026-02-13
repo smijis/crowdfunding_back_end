@@ -19,4 +19,4 @@ class UserDetailSerializer(serializers.ModelSerializer):
     pledges = PledgeSerializer(many=True, read_only=True)
     class Meta:
         model = get_user_model()
-        fields = ['id', 'name', 'email', 'fundraisers', 'pledges']
+        fields = ['id', 'name', 'email', 'suburb', 'fundraisers', 'pledges']
