@@ -31,6 +31,10 @@ class CustomUserList(APIView): #this class lists all the users
 class CustomUserDetail(APIView): #inheriting on top of the built in API View. this class will deal with when we want to retrieve a particular user
     def get(self, request, pk): #pk = primary key e.g. /users/1 (1 is the primary key - the user ID)
         user = get_object_or_404(CustomUser, pk=pk)
+
+        if not user.is_active:
+            return Response({"This account has been deactivated."}, status=status.HTTP_403_FORBIDDEN)
+
         serializer = CustomUserSerializer(user)
     
         fundraisers = Fundraiser.objects.filter(owner=user)
@@ -50,6 +54,20 @@ class CustomUserDetail(APIView): #inheriting on top of the built in API View. th
             response_data["pledges"] = pledges_serializer.data
 
         return Response(response_data)
+    
+    def post(self, request, pk):
+        user = get_object_or_404(CustomUser, pk=pk)
+
+        if request.user.id != user.id:
+            return Response(status=403)
+
+        open_fundraisers = Fundraiser.objects.filter(owner=user, is_open=True)
+        if open_fundraisers.exists():
+            return Response({"Error: Cannot deactivate account with open fundraisers."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user.is_active = False
+        user.save()
+        return Response({"Your account has been deactivated."}, status=status.HTTP_200_OK)
 
     
 class CustomAuthToken(ObtainAuthToken): #shorter version Biago provided via Slack (bookmarked on Chrome)
