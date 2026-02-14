@@ -31,6 +31,7 @@ User stories:
 - "As a user, I want to see all the fundraisers I've created/all pledges I've made."
 - "As a user, I want to see all the fundraisers another user has created."
 - "As a fundraiser creator, I want to edit/close an existing fundraiser."
+- "As a fundraiser creator, I want to delete a fundraiser if it has no pledges."
 - "As a pledger, I want to fund a fundraiser." 
 - "As a pledger, I want to edit a pledge."
 
