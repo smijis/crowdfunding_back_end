@@ -14,7 +14,7 @@ Selina Shin
 
 'Community Change' is a community-driven crowdfunding platform that allows people to create fundraisers for small, local improvement projects in their neighbourhood. Instead of waiting for council action, residents can raise money to directly support initiatives. Examples include filling in a pothole, covering graffiti with a mural, purchasing more books for the local library, running a school holiday program, and renovating the bathrooms at the local park.
 
-(P.S. “Community Change” is a pun referring to both money and making a difference. In other words, it’s the positive change we can create together with our community's cash.)
+(P.S. “Community Change” is a pun referring to both money and making a difference. In other words, it’s the positive change we can create together with our community's funds.)
 
 ### Intended Audience/User Stories
 
@@ -71,16 +71,16 @@ User stories:
 
 | URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/ Authorisation |
 |---|---|---|---|---|---|
-| /api/signup/ | POST | Create new account | name, email, password | 201 Created | none |
-| /api/login/ | POST | Log a user into the system | email, password | 200 OK | none |
-| /api/fundraisers/ | GET | View all fundraisers | none | 200 OK | none |
-| /api/fundraisers/ | POST | Create new fundraiser | title, image, description, location, goal amount, deadline, active | 201 Created | authenticated user |
-| /api/fundraisers/:id/ | GET | View individual fundraiser and all pledges | none | 200 OK | none |
-| /api/fundraisers/:id/ | PUT | Edit existing fundraiser | title, image, description, location, goal amount, deadline, active | 200 OK | authorised user |
-| /api/pledges/| POST | Pledge fundraiser | fundraiser, amount, anonymous, comment | 201 Created | authenticated user |
-| /api/pledges/:id/ | PUT | Edit pledge | anonymous, comment | 200 OK | authorised user |
-| /api/users/:id/| GET | View all user's fundraisers | none | 200 OK | none |
-| /api/users/:id/| GET | View all user's pledges | none | 200 OK | authorised user |
+| /users/ | POST | Create new account | name, email, password | 201 Created | none |
+| /api-token-auth/ | POST | Log a user into the system | email, password | 200 OK | none |
+| /fundraisers/ | GET | View all fundraisers | none | 200 OK | none |
+| /fundraisers/ | POST | Create new fundraiser | title, image, description, location, goal amount, deadline, active | 201 Created | authenticated user |
+| /fundraisers/:id/ | GET | View individual fundraiser and all pledges | none | 200 OK | none |
+| /fundraisers/:id/ | PUT | Edit existing fundraiser | title, image, description, location, goal amount, deadline, active | 200 OK | authorised user |
+| /pledges/| POST | Pledge fundraiser | fundraiser, amount, anonymous, comment | 201 Created | authenticated user |
+| /pledges/:id/ | PUT | Edit pledge | anonymous, comment | 200 OK | authorised user |
+| /users/:id/| GET | View all user's fundraisers | none | 200 OK | none |
+| /users/:id/| GET | View all user's pledges | none | 200 OK | authorised user |
 
 ### DB Schema
 
