@@ -85,15 +85,28 @@ User stories:
 
 ### Submission
 
-- Link to the deployed project: https://crowdfunding-app-production-dc1723c10be4.herokuapp.com/
+- Link to the deployed project: https://crowdfunding-app-production-dc1723c10be4.herokuapp.com/fundraisers/
 - A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
   - Create a user
   ![screenshot create a user](/images/POST_create_user.png)
-  - 
+  - Create a fundraiser
+  ![screenshot create a fundraiser](/images/POST_create_fundraiser.png)
+  - Create a pledge
+  ![screenshot create a pledge](/images/POST_create_pledge.png)
 - A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
   - Get all users
   ![screenshot of all users](/images/GET_all_users.png)
+  - Get all fundraisers
+  ![screenshot of all fundraisers](/images/GET_all_fundraisers.png)
 - A screenshot of Insomnia, demonstrating a token being returned.
   ![screenshot generate token](/images/POST_generate_token.png)
-- Step by step instructions for how to register a new user and create a new fundraiser (i.e. endpoints and body data).</br>
-- Your refined API specification and Database Schema.
+- Step by step instructions for how to register a new user and create a new fundraiser (i.e. endpoints and body data).
+  1. Register a new user 
+    - endpoint: POST /users/
+    - body data example:</br>
+      ![body data example of creating a new user](/images/body_data_example_create_user.png)
+  2. Create a new fundraiser
+    - endpoint: POST /fundraisers/
+    - body data example: </br>
+      ![body data example of creating a new fundraiser](/images/body_data_example_create_fundraiser.png)
+- Your refined API specification and Database Schema. (see above)
