@@ -14,6 +14,8 @@ Selina Shin
 
 'Community Change' is a community-driven crowdfunding platform that allows people to create fundraisers for small, local improvement projects in their neighbourhood. Instead of waiting for council action, residents can raise money to directly support initiatives. Examples include filling in a pothole, covering graffiti with a mural, purchasing more books for the local library, running a school holiday program, and renovating the bathrooms at the local park.
 
+(P.S. “Community Change” is a pun referring to both money and making a difference. In other words, it’s the positive change we can create together with our community's cash.)
+
 ### Intended Audience/User Stories
 
 The intended audience for Community Change includes:
