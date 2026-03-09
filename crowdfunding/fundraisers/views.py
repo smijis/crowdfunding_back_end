@@ -61,8 +61,8 @@ class FundraiserDetail(APIView): #inheriting the APIView. (Shorter version by Bi
         self.check_object_permissions(request, fundraiser)
         if fundraiser.pledges.exists():
             return Response(
-            {"detail": "Cannot delete a fundraiser with existing pledges. Please close status of fundraiser instead."},
-            status=status.HTTP_400_BAD_REQUEST
+                {"detail": "Cannot delete a fundraiser with existing pledges."},
+                status=status.HTTP_400_BAD_REQUEST
         )
         fundraiser.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
