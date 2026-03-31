@@ -5,17 +5,19 @@ from django.apps import apps
 
 class FundraiserSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.id') #can't change the owner or else it is bad logic if you can create fundraisers for anyone else
+    owner_username = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = apps.get_model('fundraisers.Fundraiser')
         fields = '__all__'
 
 class PledgeSerializer(serializers.ModelSerializer):
     supporter = serializers.SerializerMethodField()
+    fundraiser_title = serializers.ReadOnlyField(source='fundraiser.title')
     
     def get_supporter(self, obj):
         if obj.anonymous:
             return None
-        return obj.supporter.id
+        return obj.supporter.username
     
     class Meta:
         model = apps.get_model('fundraisers.Pledge') #fundraisers folder's Pledge
@@ -44,7 +46,7 @@ class PledgeDetailSerializer(PledgeSerializer):
     def get_supporter(self, obj):
         if obj.anonymous:
             return None
-        return obj.supporter.id
+        return obj.supporter.username
 
     def update(self, instance, validated_data):
         instance.amount = validated_data.get('amount', instance.amount)
