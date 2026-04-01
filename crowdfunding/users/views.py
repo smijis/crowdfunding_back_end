@@ -83,5 +83,6 @@ class CustomAuthToken(ObtainAuthToken): #shorter version Biago provided via Slac
         return Response({ #returning the token we generated, the user id and email (to show the user that they are logged in on the frontend)
             'token': token.key,
             'user_id': user.id,
-            'email': user.email
+            'email': user.email,
+            'username': user.username,
         })
