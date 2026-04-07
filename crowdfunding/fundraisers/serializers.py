@@ -16,7 +16,8 @@ class PledgeSerializer(serializers.ModelSerializer):
     is_mine = serializers.SerializerMethodField()
 
     def get_supporter(self, obj):
-
+        if obj.anonymous:
+            return None
         return obj.supporter.username
 
     def get_is_mine(self, obj):
