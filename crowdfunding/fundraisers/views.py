@@ -36,7 +36,7 @@ class FundraiserDetail(APIView): #inheriting the APIView. (Shorter version by Bi
 
     def get(self, request, pk): #It is in the fundraiser detail view because this is related to the url that has the number (primary key) e.g. /fundraisers/1/
         fundraiser = get_object_or_404(Fundraiser, pk=pk) #get this object or return 404 - store the data in the fundraiser variable
-        serializer = FundraiserDetailSerializer(fundraiser) #running the fundraising variable and serializing the result - store the result in serializer variable
+        serializer = FundraiserDetailSerializer(fundraiser, context={'request': request}) #running the fundraising variable and serializing the result - store the result in serializer variable
         return Response(serializer.data) #return serializer variable and exit the function
 
     def put(self, request, pk): #updating an existing fundraiser. It is in the fundraiser detail view because this is related to the url that has the number (primary key) e.g. /fundraisers/1/
