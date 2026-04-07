@@ -73,7 +73,7 @@ class PledgeList(APIView):
 
     def get(self,request):
         pledges = Pledge.objects.all()
-        serializer = PledgeSerializer(pledges, many=True)
+        serializer = PledgeSerializer(pledges, many=True, context={'request': request})
         return Response(serializer.data)
     
     def post(self,request):

@@ -16,11 +16,11 @@ class PledgeSerializer(serializers.ModelSerializer):
     is_mine = serializers.SerializerMethodField()
 
     def get_supporter(self, obj):
-        if obj.anonymous:
-            return None
+
         return obj.supporter.username
 
     def get_is_mine(self, obj):
+        print(self.context)
         request = self.context.get('request')
         if request and request.user.is_authenticated:
             return obj.supporter == request.user
