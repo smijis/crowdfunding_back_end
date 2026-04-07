@@ -13,14 +13,21 @@ class FundraiserSerializer(serializers.ModelSerializer):
 class PledgeSerializer(serializers.ModelSerializer):
     supporter = serializers.SerializerMethodField()
     fundraiser_title = serializers.ReadOnlyField(source='fundraiser.title')
-    
+    is_mine = serializers.SerializerMethodField()
+
     def get_supporter(self, obj):
         if obj.anonymous:
             return None
         return obj.supporter.username
-    
+
+    def get_is_mine(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return obj.supporter == request.user
+        return False
+
     class Meta:
-        model = apps.get_model('fundraisers.Pledge') #fundraisers folder's Pledge
+        model = apps.get_model('fundraisers.Pledge')
         fields = '__all__'
 
 class FundraiserDetailSerializer(FundraiserSerializer):
